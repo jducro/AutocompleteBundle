@@ -1,6 +1,6 @@
 <?php
 
-namespace winzou\winzouJQueryAutocompleteBundle;
+namespace winzou\JQueryAutocompleteBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
