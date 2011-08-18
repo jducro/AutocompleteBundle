@@ -16,13 +16,16 @@ Usage
   - Register this bundle, and publish the assets
   - Register winzouCacheBundle : https://github.com/winzou/CacheBundle (no, Symfony doesn't have a cache system on its own)
   - In your config.yml:
+  
 ```yaml
 twig:
     form:
         resources:
             - 'winzouAutocompleteBundle:Form:fields.html.twig'
 ```
+
   - In your controller:
+  
 ```php
 $form = $this->createFormBuilder()
     ->add('test', 'autocomplete_entity', array(
@@ -32,8 +35,11 @@ $form = $this->createFormBuilder()
         'em' => $this->getDoctrine()->getEntityManager()
     ))
     ->getForm();
+    
 ```
+
   - In your view:
+  
 ```html
 <script src="{{ assets('bundles/winzouautocomplete/js/jquery-1.6.2.min.js') }}"></script>
 <script src="{{ assets('bundles/winzouautocomplete/js/jquery-ui-1.8.15.custom.min.js') }}"></script>
