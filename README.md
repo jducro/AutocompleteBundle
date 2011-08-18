@@ -15,28 +15,28 @@ Usage
   - Register this bundle, and publish the assets
   - Register winzouCacheBundle : https://github.com/winzou/CacheBundle (no, Symfony doesn't have a cache system on its own)
   - In your config.yml:
-    twig:
+    ``twig:
         form:
             resources:
-                - 'winzouAutocompleteBundle:Form:fields.html.twig'
+                - 'winzouAutocompleteBundle:Form:fields.html.twig'``
   - In your controller:
-    $form = $this->createFormBuilder()
+    ``$form = $this->createFormBuilder()
         ->add('test', 'autocomplete_entity', array(
             'class' => 'YourSuperBundle:OneSuperEntity',
             'property' => 'YourProperty',
             'field_id' => 'autocomplete_test',
             'em' => $this->getDoctrine()->getEntityManager()
         ))
-        ->getForm();
+        ->getForm();``
   - In your view:
-    <script src="{{ assets('bundles/winzouautocomplete/js/jquery-1.6.2.min.js') }}"></script>
+    ``<script src="{{ assets('bundles/winzouautocomplete/js/jquery-1.6.2.min.js') }}"></script>
     <script src="{{ assets('bundles/winzouautocomplete/js/jquery-ui-1.8.15.custom.min.js') }}"></script>
     <link rel="stylesheet" href="{{ assets('bundles/winzouautocomplete/css/ui-lightness/jquery-ui-1.8.15.custom.css') }}" type="text/css" media="screen" />
 
     <form method="post">
         {{ form_widget(form) }}
         <input type="submit" />
-    </form>
+    </form>``
   - Autocomplete with ajax isn't yet ready, it's comming. For now you just pass the choices in the HTML page, and jQuery doest the rest.
 
 Todo
