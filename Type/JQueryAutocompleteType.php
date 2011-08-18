@@ -1,6 +1,6 @@
 <?php
 
-namespace winzou\JQueryAutocompleteBundle\Type;
+namespace winzou\AutocompleteBundle\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
@@ -9,13 +9,13 @@ use Symfony\Component\Form\FormView;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-use winzou\JQueryAutocompleteBundle\Service\FieldManager;
-use winzou\JQueryAutocompleteBundle\DataTransformer\EntityToPropertyTransformer;
+use winzou\AutocompleteBundle\Service\FieldManager;
+use winzou\AutocompleteBundle\DataTransformer\EntityToPropertyTransformer;
 
 
 class JQueryAutocompleteType extends AbstractType
 {
-    /** @var winzou\JQueryAutocompleteBundle\Service\FieldManager */
+    /** @var winzou\AutocompleteBundle\Service\FieldManager */
     protected $fieldManager;
 
     public function __construct(FieldManager $fieldManager)
@@ -54,7 +54,7 @@ class JQueryAutocompleteType extends AbstractType
             'multiple' => false,
             'ajax'     => false,
             'id'       => $this->fieldManager->getAvailableId(),
-            'field'    => 'winzou\JQueryAutocompleteBundle\Service\EntityAutocompleteField',
+            'field'    => 'winzou\AutocompleteBundle\Service\EntityAutocompleteField',
         );
 
         return array_replace($defaultOptions, $options);

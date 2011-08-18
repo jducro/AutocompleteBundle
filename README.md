@@ -1,4 +1,4 @@
-winzouJQueryAutocompleteBundle
+winzouAutocompleteBundle
 ============
 
 What's that?

@@ -1,6 +1,6 @@
 <?php
 
-namespace winzou\JQueryAutocompleteBundle\Service;
+namespace winzou\AutocompleteBundle\Service;
 
 use winzou\CacheBundle\Cache\AbstractCache;
 use Doctrine\ORM\EntityManager;
@@ -12,9 +12,9 @@ interface FieldInterface
     public function __construct(array $options);
 
     public function getId();
-	
+
     public function getClass();
-	
+
     public function getProperty();
 
     public function getParameters();

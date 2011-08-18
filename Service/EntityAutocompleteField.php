@@ -1,6 +1,6 @@
 <?php
 
-namespace winzou\JQueryAutocompleteBundle\Service;
+namespace winzou\AutocompleteBundle\Service;
 
 use winzou\CacheBundle\Cache\AbstractCache;
 use Doctrine\ORM\EntityManager;
@@ -98,8 +98,8 @@ class EntityAutocompleteField implements FieldInterface
 
         return $qb
             ->select($qb->getRootAlias())
-            ->andWhere($qb->getRootAlias().'.'.$this->getProperty().' = :jqueryautocompletevalue')
-                ->setParameter('jqueryautocompletevalue', $value)
+            ->andWhere($qb->getRootAlias().'.'.$this->getProperty().' = :winzouautocompletevalue')
+                ->setParameter('winzouautocompletevalue', $value)
             ->setParameters(array_merge($this->getParameters(), $params))
             ->getQuery()
             ->getSingleResult();
@@ -118,8 +118,8 @@ class EntityAutocompleteField implements FieldInterface
 
         return $qb
             ->select('COUNT('.$qb->getRootAlias().')')
-            ->andWhere($qb->getRootAlias().'.'.$this->getProperty().' = :jqueryautocompletevalue')
-                ->setParameter('jqueryautocompletevalue', $value)
+            ->andWhere($qb->getRootAlias().'.'.$this->getProperty().' = :winzouautocompletevalue')
+                ->setParameter('winzouautocompletevalue', $value)
             ->setParameters($params)
             ->getQuery()
             ->getSingleScalarResult();

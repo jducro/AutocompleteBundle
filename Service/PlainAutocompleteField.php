@@ -1,6 +1,6 @@
 <?php
 
-namespace winzou\JQueryAutocompleteBundle\Service;
+namespace winzou\AutocompleteBundle\Service;
 
 use winzou\CacheBundle\Cache\AbstractCache;
 use Doctrine\ORM\EntityManager;

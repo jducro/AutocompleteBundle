@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace winzou\JQueryAutocompleteBundle\DataTransformer;
+namespace winzou\AutocompleteBundle\DataTransformer;
 
 
 use Doctrine\ORM\NoResultException;
@@ -17,11 +17,11 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-use winzou\JQueryAutocompleteBundle\Service\FieldInterface;
+use winzou\AutocompleteBundle\Service\FieldInterface;
 
 class EntityToPropertyTransformer implements DataTransformerInterface
 {
-    /** @var winzou\JQueryAutocompleteBundle\Service\FieldInterface */
+    /** @var winzou\AutocompleteBundle\Service\FieldInterface */
     protected $field;
 
     public function __construct(FieldInterface $field)

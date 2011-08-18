@@ -1,6 +1,6 @@
 <?php
 
-namespace winzou\JQueryAutocompleteBundle\Service;
+namespace winzou\AutocompleteBundle\Service;
 
 use winzou\CacheBundle\Cache\AbstractCache;
 
@@ -29,7 +29,7 @@ class FieldManager
     /**
      * Fetch the information for the $id field
      * @param string $id
-     * @return winzou\JQueryAutocompleteBundle\Service\FieldInterface
+     * @return winzou\AutocompleteBundle\Service\FieldInterface
      */
     public function getField($id)
     {
@@ -42,7 +42,7 @@ class FieldManager
      */
     public function getAvailableId()
     {
-        while($this->_contains($id = 'jqueryautocomplete_'.sha1(uniqid())));
+        while($this->_contains($id = 'winzou_autocomplete_'.sha1(uniqid())));
 
         return $id;
     }
@@ -50,7 +50,7 @@ class FieldManager
 
     /**
      * Save the information for the $id field
-     * @param winzou\JQueryAutocompleteBundle\Service\FieldInterface $field
+     * @param winzou\AutocompleteBundle\Service\FieldInterface $field
      */
     protected function _save(FieldInterface $field)
     {
@@ -62,7 +62,7 @@ class FieldManager
     /**
      * Fetch the information for the $id field
      * @param string $id
-     * @return winzou\JQueryAutocompleteBundle\Service\FieldInterface
+     * @return winzou\AutocompleteBundle\Service\FieldInterface
      * @throws \Exception
      */
     protected function _fetch($id)
