@@ -1,0 +1,10 @@
+services:
+    autocomplete_entity.type:
+        class: winzou\JQueryAutocompleteBundle\Type\JQueryAutocompleteType
+        arguments: [@autocomplete_service]
+        tags:
+            - { name: form.type, alias: autocomplete_entity }
+
+    autocomplete_service:
+        class: winzou\JQueryAutocompleteBundle\Service\FieldManager
+        arguments: [@winzou_cache.file]

@@ -1,0 +1,15 @@
+{% block autocomplete_entity_widget %}
+    {{ block('field_widget') }}
+	
+	{% if choices is defined %}
+		<script type="text/javascript">
+			$("#{{ id }}").autocomplete({
+				source: [
+					{%- for choice in choices -%}
+						"{{ choice[property] }}",
+					{%- endfor -%}
+				]
+			});
+		</script>
+	{% endif %}
+{% endblock %}
