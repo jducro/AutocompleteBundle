@@ -20,7 +20,8 @@ Usage
 twig:
     form:
         resources:
-            - 'winzouAutocompleteBundle:Form:fields.html.twig'```
+            - 'winzouAutocompleteBundle:Form:fields.html.twig'
+```
   - In your controller:
 ```php
 $form = $this->createFormBuilder()
@@ -30,7 +31,8 @@ $form = $this->createFormBuilder()
         'field_id' => 'autocomplete_test',
         'em' => $this->getDoctrine()->getEntityManager()
     ))
-    ->getForm();```
+    ->getForm();
+```
   - In your view:
 ```html
 <script src="{{ assets('bundles/winzouautocomplete/js/jquery-1.6.2.min.js') }}"></script>
@@ -40,7 +42,8 @@ $form = $this->createFormBuilder()
 <form method="post">
     {{ form_widget(form) }}
     <input type="submit" />
-</form>```
+</form>
+```
   - Autocomplete with ajax isn't yet ready, it's comming. For now you just pass the choices in the HTML page, and jQuery doest the rest.
 
 Todo
