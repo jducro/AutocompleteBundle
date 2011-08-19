@@ -41,9 +41,9 @@ $form = $this->createFormBuilder()
   - In your view:
   
 ```html
-<script src="{{ assets('bundles/winzouautocomplete/js/jquery-1.6.2.min.js') }}"></script>
-<script src="{{ assets('bundles/winzouautocomplete/js/jquery-ui-1.8.15.custom.min.js') }}"></script>
-<link rel="stylesheet" href="{{ assets('bundles/winzouautocomplete/css/ui-lightness/jquery-ui-1.8.15.custom.css') }}" type="text/css" media="screen" />
+<script src="{{ asset('bundles/winzouautocomplete/js/jquery-1.6.2.min.js') }}"></script>
+<script src="{{ asset('bundles/winzouautocomplete/js/jquery-ui-1.8.15.custom.min.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('bundles/winzouautocomplete/css/ui-lightness/jquery-ui-1.8.15.custom.css') }}" type="text/css" media="screen" />
 
 <form method="post">
     {{ form_widget(form) }}
