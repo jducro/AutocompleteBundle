@@ -44,11 +44,41 @@ twig:
     <input type="submit" />
 </form>
 ```
-  - Autocomplete with ajax isn't yet ready, it's comming. For now you just pass the choices in the HTML page, and jQuery doest the rest.
+Ajax
+------
 
-Todo
------
-  - Ajax autocompletion
+  - In your From:
+  
+```php
+    ->add('test', 'autocomplete_entity', array(
+        'class' => 'YourSuperBundle:OneSuperEntity',
+		'ajax'	=> TRUE,
+		'route'	=> 'route_of_my_json_function',
+    ))
+
+in your controller
+/**
+ *
+ * @Route("/get_json/", name="route_of_my_json_function")
+ */
+public function getJson()
+{
+    $json = array();
+    $s = $this->getRequest()->query->get('term');
+    if ($s)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $entities = $em->getRepository('YourSuperBundle:OneSuperEntity')->search($s);
+        foreach ($entities as $entity)
+        {
+            $json_entity['id'] = $entity->getId();
+            $json_entity['label'] = (string)$entity;
+            $json_entity['value'] = $entity->getId();
+            $json[] = $json_entity;
+        }
+    }
+    return new Response(json_encode($json));
+}
 
 License
 --------
