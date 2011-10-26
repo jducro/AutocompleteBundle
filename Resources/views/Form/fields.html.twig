@@ -1,15 +1,30 @@
 {% block autocomplete_entity_widget %}
     {{ block('field_widget') }}
 	
-	{% if choices is defined %}
+        {% if choices is defined %}
 		<script type="text/javascript">
-			$("#{{ id }}").autocomplete({
-				source: [
-					{%- for choice in choices -%}
-						"{{ choice[property] }}",
-					{%- endfor -%}
-				]
-			});
+                    window.onload = function (){
+                        var data = [
+                                    {% for id, choice in choices %}
+                                        {value: "{{id}}",
+                                        label: "{{ choice }}"},
+                                    {% endfor %}
+                            ];
+                        var field = $('#{{ id }}');
+                        field.hide();
+                        field.parent().append('<input type="text" id="{{ id }}_autocomplete" />');
+                        $('#{{ id }}_autocomplete').autocomplete({
+                            source: data,
+                            formatItem: function(item) {
+                                return item.text;
+                            },
+                            select: function( event, ui ) {
+				$( "#{{ id }}_autocomplete" ).val( ui.item.label );
+				$( "#{{ id }}" ).val( ui.item.value );
+				return false;
+                            }
+                        });
+                    };
 		</script>
 	{% endif %}
 {% endblock %}

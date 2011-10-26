@@ -1,10 +1,6 @@
 services:
     autocomplete_entity.type:
-        class: winzou\AutocompleteBundle\Type\JQueryAutocompleteType
-        arguments: [@autocomplete_service]
+        class: Interlex\Common\AutocompleteBundle\Type\JQueryAutocompleteType
+        arguments: [@doctrine]
         tags:
             - { name: form.type, alias: autocomplete_entity }
-
-    autocomplete_service:
-        class: winzou\AutocompleteBundle\Service\FieldManager
-        arguments: [@winzou_cache.file]

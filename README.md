@@ -1,49 +1,43 @@
-winzouAutocompleteBundle
+jducroAutocompleteBundle
 ============
 
 What's that?
 --------------
-A still-in-dev bundle, which will provide a JQueryAutocompleteType to use in your forms.
-As well as plain array autocomplete actually.
+A bundle to provide a JQueryAutocompleteType to use in your forms.
+Inspired from winzouAutocompleteBundle
+
+Requirements
+------------
+jQuery and jQuery UI including a UI theme
 
 Contribution
-----------
-I'm looking for a way to hugely improve this bundle, I'm not that happy with it.
+------------
 
 Usage
 ------
 
   - Register this bundle, and publish the assets
-  - Register winzouCacheBundle : https://github.com/winzou/CacheBundle (no, Symfony doesn't have a cache system on its own)
   - In your config.yml:
   
 ```yaml
 twig:
     form:
         resources:
-            - 'winzouAutocompleteBundle:Form:fields.html.twig'
+            - 'jducroAutocompleteBundle:Form:fields.html.twig'
 ```
 
-  - In your controller:
+  - In your From:
   
 ```php
-$form = $this->createFormBuilder()
     ->add('test', 'autocomplete_entity', array(
         'class' => 'YourSuperBundle:OneSuperEntity',
-        'property' => 'YourProperty',
-        'field_id' => 'autocomplete_test',
-        'em' => $this->getDoctrine()->getEntityManager()
     ))
-    ->getForm();
     
 ```
 
   - In your view:
   
 ```html
-<script src="{{ asset('bundles/winzouautocomplete/js/jquery-1.6.2.min.js') }}"></script>
-<script src="{{ asset('bundles/winzouautocomplete/js/jquery-ui-1.8.15.custom.min.js') }}"></script>
-<link rel="stylesheet" href="{{ asset('bundles/winzouautocomplete/css/ui-lightness/jquery-ui-1.8.15.custom.css') }}" type="text/css" media="screen" />
 
 <form method="post">
     {{ form_widget(form) }}
@@ -55,8 +49,6 @@ $form = $this->createFormBuilder()
 Todo
 -----
   - Ajax autocompletion
-  - Find a way to handle plain/entity autocomplete
-  - More than jQuery, it would be nice to provide Prototype or even plain JS compatibility
 
 License
 --------

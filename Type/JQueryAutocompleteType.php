@@ -1,6 +1,6 @@
 <?php
 
-namespace winzou\AutocompleteBundle\Type;
+namespace Interlex\Common\AutocompleteBundle\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
@@ -8,56 +8,69 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityChoiceList;
 
-use winzou\AutocompleteBundle\Service\FieldManager;
-use winzou\AutocompleteBundle\DataTransformer\EntityToPropertyTransformer;
+use Symfony\Bridge\Doctrine\Form\DataTransformer\EntityToIdTransformer;
 
 
 class JQueryAutocompleteType extends AbstractType
 {
     /** @var winzou\AutocompleteBundle\Service\FieldManager */
-    protected $fieldManager;
+    protected $registry;
 
-    public function __construct(FieldManager $fieldManager)
+    public function __construct(RegistryInterface $registry)
     {
-        $this->fieldManager = $fieldManager;
+        $this->registry = $registry;
     }
 
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $fieldClass = $options['field'];
-
-        $field = new $fieldClass($options);
-
-        $this->fieldManager->setField($field);
+        if (empty($options['field_id'])) $options['field_id'] = $builder->getName();
+        
 
         if ($options['multiple']) {
             throw new \Exception('Not yet implemented');
             $builder
-                ->prependClientTransformer(new EntitiesToArrayTransformer($options['choice_list']))
+                ->prependClientTransformer(new EntityToIdTransformer($options['choice_list']))
             ;
         } else {
-            $builder->prependClientTransformer(new EntityToPropertyTransformer($field));
+            $builder->prependClientTransformer(new EntityToIdTransformer($options['choice_list']));
         }
 
         $builder
-            ->setAttribute('multiple', $options['multiple'])
-            ->setAttribute('required', $options['required'])
-            ->setAttribute('field_id', $options['field_id'])
-            ->setAttribute('ajax',     $options['ajax'])
-            ->setAttribute('property', $options['property']);
+            ->setAttribute('multiple',  $options['multiple'])
+            ->setAttribute('required',  $options['required'])
+            ->setAttribute('ajax',      $options['ajax'])
+            ->setAttribute('choice_list',$options['choice_list'])
+            ->setAttribute('property',  $options['property']);
     }
 
     public function getDefaultOptions(array $options)
     {
         $defaultOptions = array(
-            'multiple' => false,
-            'ajax'     => false,
-            'id'       => $this->fieldManager->getAvailableId(),
-            'field'    => 'winzou\AutocompleteBundle\Service\EntityAutocompleteField',
+            'em'            => null,
+            'class'         => null,
+            'property'      => null,
+            'query_builder' => null,
+            'choices'       => array(),
+            'multiple'      => false,
+            'ajax'          => false,
+            'field'         => 'Interlex\Common\AutocompleteBundle\Service\EntityAutocompleteField',
         );
 
-        return array_replace($defaultOptions, $options);
+        $options = array_replace($defaultOptions, $options);
+        
+        if (!isset($options['choice_list'])) {
+            $defaultOptions['choice_list'] = new EntityChoiceList(
+                $this->registry->getEntityManager($options['em']),
+                $options['class'],
+                $options['property'],
+                $options['query_builder'],
+                $options['choices']
+            );
+        }
+
+        return $defaultOptions;
     }
 
     public function getParent(array $options)
@@ -72,7 +85,8 @@ class JQueryAutocompleteType extends AbstractType
     {
         // If we autocomplete by ajax, we don't pass the choices here
         if (!$form->getAttribute('ajax')) {
-            $view->set('choices', $this->fieldManager->getField($form->getAttribute('field_id'))->getEntities());
+            $choices = $form->getAttribute('choice_list')->getChoices();
+            $view->set('choices', $choices);
         }
 
         if ($form->getAttribute('multiple')) {
