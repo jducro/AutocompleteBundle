@@ -1,20 +1,26 @@
 {% block autocomplete_entity_widget %}
     {{ block('field_widget') }}
 	
-        {% if choices is defined %}
+        {% if choices is defined or ajax %}
 		<script type="text/javascript">
                     window.onload = function (){
+                        {% if not ajax %}
                         var data = [
                                     {% for id, choice in choices %}
                                         {value: "{{id}}",
                                         label: "{{ choice }}"},
                                     {% endfor %}
                             ];
+                        {% endif %}
                         var field = $('#{{ id }}');
                         field.hide();
                         field.parent().append('<input type="text" id="{{ id }}_autocomplete" />');
                         $('#{{ id }}_autocomplete').autocomplete({
+                            {% if ajax %}
+                            source: '{{ path(route) }}',
+                            {% else %}
                             source: data,
+                            {% endif %}
                             formatItem: function(item) {
                                 return item.text;
                             },

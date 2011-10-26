@@ -40,6 +40,7 @@ class JQueryAutocompleteType extends AbstractType
             ->setAttribute('multiple',  $options['multiple'])
             ->setAttribute('required',  $options['required'])
             ->setAttribute('ajax',      $options['ajax'])
+            ->setAttribute('route',     $options['route'])
             ->setAttribute('choice_list',$options['choice_list'])
             ->setAttribute('property',  $options['property']);
     }
@@ -54,6 +55,7 @@ class JQueryAutocompleteType extends AbstractType
             'choices'       => array(),
             'multiple'      => false,
             'ajax'          => false,
+            'route'         => '',
         );
 
         $options = array_replace($defaultOptions, $options);
@@ -85,6 +87,8 @@ class JQueryAutocompleteType extends AbstractType
         if (!$form->getAttribute('ajax')) {
             $choices = $form->getAttribute('choice_list')->getChoices();
             $view->set('choices', $choices);
+        } else {
+            $view->set('route',     $form->getAttribute('route'));
         }
 
         if ($form->getAttribute('multiple')) {
@@ -94,6 +98,8 @@ class JQueryAutocompleteType extends AbstractType
             $view->set('full_name', $view->get('full_name').'[]');
         }
 
+        $view->set('ajax',     $form->getAttribute('ajax'));
+        $view->set('multiple', $form->getAttribute('multiple'));
         $view->set('multiple', $form->getAttribute('multiple'));
         $view->set('property', $form->getAttribute('property'));
     }
