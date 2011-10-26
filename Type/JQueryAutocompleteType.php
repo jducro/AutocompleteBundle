@@ -1,6 +1,6 @@
 <?php
 
-namespace Interlex\Common\AutocompleteBundle\Type;
+namespace jducro\AutocompleteBundle\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
@@ -15,7 +15,6 @@ use Symfony\Bridge\Doctrine\Form\DataTransformer\EntityToIdTransformer;
 
 class JQueryAutocompleteType extends AbstractType
 {
-    /** @var winzou\AutocompleteBundle\Service\FieldManager */
     protected $registry;
 
     public function __construct(RegistryInterface $registry)
@@ -55,7 +54,6 @@ class JQueryAutocompleteType extends AbstractType
             'choices'       => array(),
             'multiple'      => false,
             'ajax'          => false,
-            'field'         => 'Interlex\Common\AutocompleteBundle\Service\EntityAutocompleteField',
         );
 
         $options = array_replace($defaultOptions, $options);

@@ -1,6 +1,6 @@
 services:
     autocomplete_entity.type:
-        class: Interlex\Common\AutocompleteBundle\Type\JQueryAutocompleteType
+        class: jducro\AutocompleteBundle\Type\JQueryAutocompleteType
         arguments: [@doctrine]
         tags:
             - { name: form.type, alias: autocomplete_entity }

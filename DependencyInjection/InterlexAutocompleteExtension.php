@@ -1,6 +1,6 @@
 <?php
 
-namespace Interlex\Common\AutocompleteBundle\DependencyInjection;
+namespace jducro\AutocompleteBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -9,10 +9,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Config\FileLocator;
 
 /**
- * Extension for the bundle winzouCacheExtension
- * @author winzou
+ * @author jducro
  */
-class InterlexAutocompleteExtension extends Extension
+class jducroAutocompleteExtension extends Extension
 {
     /**
      * @see Symfony\Component\DependencyInjection\Extension\ExtensionInterface::load()
