@@ -56,7 +56,8 @@ Ajax
 		'route'	=> 'route_of_my_json_function',
     ))
 
-  - In your controller
+  - In your controller:
+
 /**
  *
  * @Route("/get_json/", name="route_of_my_json_function")
