@@ -82,6 +82,7 @@ public function getJson()
     }
     return new Response(json_encode($json));
 }
+```
 
 License
 --------
