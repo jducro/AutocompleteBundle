@@ -24,7 +24,12 @@
                             formatItem: function(item) {
                                 return item.text;
                             },
-                            select: function( event, ui ) {
+                            select: function(event, ui) {
+				$( "#{{ id }}_autocomplete" ).val( ui.item.label );
+				$( "#{{ id }}" ).val( ui.item.value );
+				return false;
+                            },
+                            focus: function(event, ui) {
 				$( "#{{ id }}_autocomplete" ).val( ui.item.label );
 				$( "#{{ id }}" ).val( ui.item.value );
 				return false;
