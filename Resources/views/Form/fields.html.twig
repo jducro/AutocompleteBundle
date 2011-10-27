@@ -4,6 +4,9 @@
         {% if choices is defined or ajax %}
 		<script type="text/javascript">
                     window.onload = function (){
+                        var field = $('#{{ id }}');
+                        field.hide();
+                        field.parent().append('<input type="text" id="{{ id }}_autocomplete" />');
                         {% if not ajax %}
                         var data = [
                                     {% for id, choice in choices %}
@@ -11,29 +14,47 @@
                                         label: "{{ choice }}"},
                                     {% endfor %}
                             ];
+                            $('#{{ id }}_autocomplete').autocomplete({
+                                source: data,
+                                formatItem: function(item) {
+                                    return item.text;
+                                }
+                            });
+                        {% else %}
+                            $(function() {
+                                var cache = {},
+                                        lastXhr;
+                            $( "#{{ id }}_autocomplete" ).autocomplete({
+                                minLength: 2,
+                                source: function( request, response ) {
+                                    var term = request.term;
+                                    if ( term in cache ) {
+                                        response( cache[ term ] );
+                                        return;
+                                    }
+
+                                    lastXhr = $.getJSON( "{{ path(route) }}", request, function( data, status, xhr ) {
+                                        cache[ term ] = data;
+                                        if ( xhr === lastXhr ) {
+                                            response( data );
+                                        }
+                                    });
+                                },
+                                formatItem: function(item) {
+                                    return item.text;
+                                }
+                            });
+                        });
                         {% endif %}
-                        var field = $('#{{ id }}');
-                        field.hide();
-                        field.parent().append('<input type="text" id="{{ id }}_autocomplete" />');
-                        $('#{{ id }}_autocomplete').autocomplete({
-                            {% if ajax %}
-                            source: '{{ path(route) }}',
-                            {% else %}
-                            source: data,
-                            {% endif %}
-                            formatItem: function(item) {
-                                return item.text;
-                            },
-                            select: function(event, ui) {
-				$( "#{{ id }}_autocomplete" ).val( ui.item.label );
-				$( "#{{ id }}" ).val( ui.item.value );
-				return false;
-                            },
-                            focus: function(event, ui) {
-				$( "#{{ id }}_autocomplete" ).val( ui.item.label );
-				$( "#{{ id }}" ).val( ui.item.value );
-				return false;
-                            }
+                        $( "#{{ id }}_autocomplete" ).bind( "autocompletefocus", function(event, ui) {
+                            $( "#{{ id }}_autocomplete" ).val( ui.item.label );
+                            $( "#{{ id }}" ).val( ui.item.value );
+                            return false;
+                        });
+                        $( "#{{ id }}_autocomplete" ).bind( "autocompleteselect", function(event, ui) {
+                            $( "#{{ id }}_autocomplete" ).val( ui.item.label );
+                            $( "#{{ id }}" ).val( ui.item.value );
+                            return false;
                         });
                     };
 		</script>
