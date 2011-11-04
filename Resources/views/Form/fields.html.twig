@@ -2,11 +2,14 @@
     {{ block('field_widget') }}
 	
         {% if choices is defined or ajax %}
+		{% if form.vars.value and not ajax %}
+                    {% set value = choices[form.vars.value] %}
+                {% endif %}
 		<script type="text/javascript">
                     window.onload = function (){
                         var field = $('#{{ id }}');
                         field.hide();
-                        field.parent().append('<input type="text" id="{{ id }}_autocomplete" />');
+                        field.parent().append('<input type="text" id="{{ id }}_autocomplete" value="{{ value }}" />');
                         {% if not ajax %}
                         var data = [
                                     {% for id, choice in choices %}
