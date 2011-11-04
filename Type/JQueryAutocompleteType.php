@@ -88,6 +88,7 @@ class JQueryAutocompleteType extends AbstractType
             $choices = $form->getAttribute('choice_list')->getChoices();
             $view->set('choices', $choices);
         } else {
+            $view->set('value', (string)$form->getData());
             $view->set('route',     $form->getAttribute('route'));
         }
 
